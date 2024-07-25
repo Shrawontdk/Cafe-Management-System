@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './best-seller.component.html',
-  styleUrl: './best-seller.component.css'
+  styleUrl: './best-seller.component.scss'
 })
 export class BestSellerComponent {
 
