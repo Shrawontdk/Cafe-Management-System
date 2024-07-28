@@ -12,7 +12,9 @@ export class UserService {
   static API = 'user';
 
 
-  constructor() { }
+  constructor() {
+
+  }
   signUp(data: any) {
     const req = ApiUtils.getRequest(`${this.getApi()}/signUp`)
     return this.http.post(req.url, data, {headers: req.header});
