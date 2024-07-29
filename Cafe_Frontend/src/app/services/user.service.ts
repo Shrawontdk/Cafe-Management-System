@@ -31,6 +31,11 @@ export class UserService {
     return this.http.post(req.url, data, {headers: req.header});
   }
 
+  checkToken() {
+    const req = ApiUtils.getRequest(`${this.getApi()}/checkToken`)
+    return this.http.get(req.url, {headers: req.header});
+  }
+
   protected getApi(): string {
     return UserService.API;
   }
