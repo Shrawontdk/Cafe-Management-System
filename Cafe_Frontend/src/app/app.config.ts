@@ -5,6 +5,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbLayoutModule, NbOverlayModule, NbThemeModule, NbToastrModule} from '@nebular/theme';
+import {ToastrModule} from "ngx-toastr";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,11 +13,7 @@ export const appConfig: ApplicationConfig = {
       RouterModule.forRoot(routes, { useHash: true }),
       HttpClientModule,
       BrowserAnimationsModule,
-      NbToastrModule.forRoot(),
-     NbOverlayModule.forRoot(),
-      NbThemeModule.forRoot(),
-      NbLayoutModule,
-
+      ToastrModule.forRoot({  preventDuplicates: true}),
     ),
     provideRouter(routes),
     provideClientHydration()

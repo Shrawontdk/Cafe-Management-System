@@ -96,7 +96,7 @@ export class SignUpComponent implements OnInit {
         this.ngxService.stop();
         this.dialogRef.close();
         this.responseMessage = res?.message;
-        this.toastService.show(new Alert(AlertType.SUCCESS, this.responseMessage));
+        this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
         this.router.navigate(['/']);
       }, error: (err: any) => {
         this.ngxService.stop();
@@ -105,7 +105,7 @@ export class SignUpComponent implements OnInit {
         } else {
           this.responseMessage = GlobalConstants.genericErrorMessage;
         }
-        this.toastService.show(new Alert(AlertType.DANGER, "Error"));
+        this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
 
       }
     })

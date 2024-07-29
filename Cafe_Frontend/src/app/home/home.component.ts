@@ -3,6 +3,8 @@ import {MatIcon} from "@angular/material/icon";
 import {BestSellerComponent} from "../best-seller/best-seller.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {SignUpComponent} from "../sign-up/sign-up.component";
+import {NgModel} from "@angular/forms";
+import {ForgotPasswordComponent} from "../forgot-password/forgot-password.component";
 
 @Component({
   selector: 'app-home',
@@ -23,5 +25,10 @@ handleSignupAction() {
   const dialogConfig = new MatDialogConfig() ;
   dialogConfig.width = "650px";
   this.dialog.open(SignUpComponent, dialogConfig);
+}
+handleForgotAction() {
+  const dialogConfig = new MatDialogConfig() ;
+  dialogConfig.width = "650px";
+  this.dialog.open(ForgotPasswordComponent, dialogConfig);
 }
 }

@@ -1,12 +1,13 @@
 export enum AlertType {
-  SUCCESS = 'success',
-  ERROR = 'error',
-  INFO = 'info',
-  WARNING = 'warning',
-  DANGER = 'danger'
+  SUCCESS = 'Success',
+  ERROR = 'Error',
+  INFO = 'Info',
+  WARNING = 'Warning',
+  DANGER = 'Danger'
 }
 
 export class Alert {
-  constructor(readonly type: AlertType, readonly message: string) {
+  constructor(readonly type: AlertType) {
   }
 }
+
