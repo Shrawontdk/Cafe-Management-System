@@ -9,6 +9,7 @@ import com.cafeManagement.service.UserService;
 import com.cafeManagement.utils.CafeUtils;
 import com.cafeManagement.utils.EmailUtils;
 import com.cafeManagement.wrapper.UserWrapper;
+import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -165,8 +166,14 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userDao.findByEmail(requestMap.get("email"));
             if (!Objects.isNull(user) && user.getEmail() != null && !user.getEmail().isEmpty()) {
-                emailUtils.forgotMail(user.getEmail(), "Credentials by Cafe Management System", user.getPassword());
-                return CafeUtils.getResponseEntity("Check your mail for credentials.", HttpStatus.OK);
+                try {
+                    emailUtils.forgotMail(user.getEmail(), "Credentials by Cafe Management System", user.getPassword());
+                    return CafeUtils.getResponseEntity("Check your mail for credentials.", HttpStatus.OK);
+                } catch (MessagingException e) {
+                    log.error("Failed to send email", e);
+                    return CafeUtils.getResponseEntity("Failed to send email. Please try again later.",
+                            HttpStatus.INTERNAL_SERVER_ERROR);
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
