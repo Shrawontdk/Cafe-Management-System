@@ -5,6 +5,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {SignUpComponent} from "../sign-up/sign-up.component";
 import {NgModel} from "@angular/forms";
 import {ForgotPasswordComponent} from "../forgot-password/forgot-password.component";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
   selector: 'app-home',
@@ -30,5 +31,10 @@ handleForgotAction() {
   const dialogConfig = new MatDialogConfig() ;
   dialogConfig.width = "650px";
   this.dialog.open(ForgotPasswordComponent, dialogConfig);
+}
+handleLogin() {
+  const dialogConfig = new MatDialogConfig() ;
+  dialogConfig.width = "650px";
+  this.dialog.open(LoginComponent, dialogConfig);
 }
 }

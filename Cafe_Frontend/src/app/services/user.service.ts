@@ -26,6 +26,11 @@ export class UserService {
     return this.http.post(req.url, data, {headers: req.header});
   }
 
+  login(data: any) {
+    const req = ApiUtils.getRequest(`${this.getApi()}/login`)
+    return this.http.post(req.url, data, {headers: req.header});
+  }
+
   protected getApi(): string {
     return UserService.API;
   }
