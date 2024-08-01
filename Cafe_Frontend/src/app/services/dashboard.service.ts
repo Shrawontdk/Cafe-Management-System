@@ -6,7 +6,7 @@ import {ApiUtils} from "../utils/api-utils";
   providedIn: 'root'
 })
 export class DashboardService {
-  private static API = '/dashboard'
+  private static API = 'dashboard'
   http = inject(HttpClient);
 
   constructor() { }

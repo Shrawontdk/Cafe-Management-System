@@ -2,10 +2,11 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {provideRouter, RouterModule} from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule, provideHttpClient, withInterceptors} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbLayoutModule, NbOverlayModule, NbThemeModule, NbToastrModule} from '@nebular/theme';
 import {ToastrModule} from "ngx-toastr";
+import {tokenInterceptorInterceptor} from "./services/token-interceptor.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
       ToastrModule.forRoot({  preventDuplicates: true}),
     ),
     provideRouter(routes),
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withInterceptors([tokenInterceptorInterceptor])),
   ]
 };

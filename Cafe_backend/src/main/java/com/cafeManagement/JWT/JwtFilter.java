@@ -38,7 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         logger.debug("Processing request: {}", httpServletRequest.getServletPath());
 
-        if (httpServletRequest.getServletPath().matches("/user/login|/user/forgotPassword|/user/signup")) {
+        if (httpServletRequest.getServletPath().matches("/v1/user/login|/v1/user/forgotPassword|/v1/user/signup")) {
             logger.debug("Skipping JWT filter for endpoint: {}", httpServletRequest.getServletPath());
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;

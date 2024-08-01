@@ -1,18 +1,34 @@
-import {environment} from "@env/environment";
-import {ObjectUtil} from "./ObjectUtil";
-import {CryptoJsUtil} from "./CryptoJsUtil";
+import { ObjectUtil } from "./ObjectUtil";
+import { environment } from "@env/environment";
+import { CryptoJsUtil } from "./CryptoJsUtil";
 
 export class LocalStorageUtil {
+  private static isStorageAvailable(): boolean {
+    return typeof window !== 'undefined' && window.localStorage !== undefined;
+  }
+
   /**
    * @description
    * Get an instance of LocalStorage.
    */
   public static getStorage(): LocalStorage {
-    return ObjectUtil.isEmpty(localStorage.getItem(environment.appConfigName))
-      ? new LocalStorage()
-      : JSON.parse(
-        CryptoJsUtil.decrypt(localStorage.getItem(environment.appConfigName))
-      );
+    if (!this.isStorageAvailable()) {
+      console.warn('localStorage is not available in this environment');
+      return new LocalStorage();
+    }
+
+    const storedData = localStorage.getItem(environment.appConfigName);
+    if (ObjectUtil.isEmpty(storedData)) {
+      return new LocalStorage();
+    }
+
+    try {
+      const decryptedData = CryptoJsUtil.decrypt(storedData);
+      return JSON.parse(decryptedData);
+    } catch (error) {
+      console.error('Error parsing stored data:', error);
+      return new LocalStorage();
+    }
   }
 
   /**
@@ -24,10 +40,17 @@ export class LocalStorageUtil {
    * LocalStorageUtil.setStorage() to set in the browser's localStorage.
    */
   public static setStorage(data: LocalStorage): void {
-    localStorage.setItem(
-      environment.appConfigName,
-      CryptoJsUtil.encrypt(JSON.stringify(data))
-    );
+    if (!this.isStorageAvailable()) {
+      console.warn('Cannot set storage: localStorage is not available');
+      return;
+    }
+
+    try {
+      const encryptedData = CryptoJsUtil.encrypt(JSON.stringify(data));
+      localStorage.setItem(environment.appConfigName, encryptedData);
+    } catch (error) {
+      console.error('Error setting storage:', error);
+    }
   }
 
   /**
@@ -35,23 +58,38 @@ export class LocalStorageUtil {
    * Passes empty JSON to clear the storage.
    */
   public static clearStorage(): void {
-    LocalStorageUtil.setStorage(new LocalStorage());
+    if (!this.isStorageAvailable()) {
+      console.warn('Cannot clear storage: localStorage is not available');
+      return;
+    }
+
+    try {
+      localStorage.removeItem(environment.appConfigName);
+    } catch (error) {
+      console.error('Error clearing storage:', error);
+    }
   }
 }
 
 export class LocalStorage {
-  sessionId: string | undefined;
-  customerForm: any | undefined;
-  currentState: any | undefined;
   at: string | undefined;
   rt: string | undefined;
   ty: string | undefined;
   et: string | undefined;
   username: string | undefined;
+  applicantId: string | undefined;
+  customerName: string | undefined;
   roleName: string | undefined;
   email: string | undefined;
   userId: string | undefined;
   userFullName: string | undefined;
   isDefaultPassword: boolean | undefined;
+  isServerCompression: boolean | undefined;
+  isImageCompression: boolean | undefined;
+  isPdfCompression: boolean | undefined;
+  isVideoCompression: boolean | undefined;
   isDefaultPasswordChanged: boolean | undefined;
+  logsStream: any | undefined;
+  isAutoDealer: boolean = false;
+  dealerId: string | undefined;
 }

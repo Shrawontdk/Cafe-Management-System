@@ -13,6 +13,7 @@ import {MatInput} from "@angular/material/input";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {NgIf} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
+import {LocalStorage, LocalStorageUtil} from "../utils/local-storage-utils";
 
 @Component({
   selector: 'app-login',
@@ -67,7 +68,10 @@ export class LoginComponent implements OnInit {
       next: (res: any) => {
         this.ngxService.stop();
         this.dialogRef.close();
-        localStorage.setItem("token", (res.token))
+        const storage = LocalStorageUtil.getStorage();
+        storage.at = res.token;
+        LocalStorageUtil.setStorage(storage);
+        // localStorage.setItem("token", (res.token))
         this.responseMessage = res?.message;
        this.router.navigate(['/cafe/dashboard']);
       },
