@@ -10,7 +10,7 @@ import {LocalStorageUtil} from "../utils/local-storage-utils";
 @Injectable({
   providedIn: 'root'
 })
-export class RouteGuardService{
+export class RouteGuardService {
   authService = inject(AuthGuardService);
   router = inject(Router);
   toaster = inject(ToastService)
@@ -18,7 +18,7 @@ export class RouteGuardService{
   constructor() {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const token: any = LocalStorageUtil.getStorage().at;
     const currentUrl = state.url;
     let tokenPayload: any;
@@ -30,16 +30,22 @@ export class RouteGuardService{
     }
 
     if (tokenPayload.role == 'user' || tokenPayload.role == 'admin') {
-      if (this.authService.isAuthenticated() ) {
+      if (this.authService.isAuthenticated()) {
         return true;
       }
       this.toaster.showToastMessage(new Alert(AlertType.ERROR), GlobalConstants.unauthorized);
       this.router.navigate(['/cafe/dashboard']);
       return false;
     } else {
-      this.router.navigate(['/']);
-      localStorage.clear();
+      this.handleAuthFailure();
       return false;
     }
+  }
+
+  private handleAuthFailure(): void {
+    console.log('Authentication failed. Redirecting to home.');
+    this.toaster.showToastMessage(new Alert(AlertType.ERROR), GlobalConstants.unauthorized);
+    LocalStorageUtil.clearStorage();
+    this.router.navigate(['/']);
   }
 }

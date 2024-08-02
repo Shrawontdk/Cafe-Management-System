@@ -36,6 +36,11 @@ export class UserService {
     return this.http.get(req.url, {headers: req.header});
   }
 
+  changePassword(data: any) {
+    const req = ApiUtils.getRequest(`${this.getApi()}/changePassword`)
+    return this.http.post(req.url, data, {headers: req.header});
+  }
+
   protected getApi(): string {
     return UserService.API;
   }

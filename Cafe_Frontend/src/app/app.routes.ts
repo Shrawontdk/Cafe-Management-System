@@ -10,6 +10,7 @@ export const routes: Routes = [
   {
     path: 'cafe',
     component: FullComponent,
+    canActivate: [RouteGuardService],
     children: [
       {
         path: '',
@@ -19,7 +20,6 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [RouteGuardService]
       },
     ]
   },

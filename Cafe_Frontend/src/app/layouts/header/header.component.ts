@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {MatIconButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,8 @@ import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
   imports: [
     MatIcon,
     MatMenu,
-    MatMenuTrigger
+    MatMenuTrigger,
+    MatIconButton
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

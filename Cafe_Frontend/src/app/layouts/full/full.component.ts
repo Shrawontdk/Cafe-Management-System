@@ -6,6 +6,7 @@ import {MatSidenav, MatSidenavContainer, MatSidenavModule} from "@angular/materi
 import {SidebarComponent} from "../sidebar/sidebar.component";
 import {RouterOutlet} from "@angular/router";
 import {MediaMatcher} from "@angular/cdk/layout";
+import {MatIconButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-full',
@@ -18,7 +19,8 @@ import {MediaMatcher} from "@angular/cdk/layout";
     SidebarComponent,
     RouterOutlet,
     MatSidenav,
-    MatSidenavModule
+    MatSidenavModule,
+    MatIconButton
   ],
   templateUrl: './full.component.html',
   styleUrl: './full.component.scss'
