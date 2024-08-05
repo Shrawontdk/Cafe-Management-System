@@ -30,7 +30,6 @@ export class ToastService {
       closeButton: false,
       preventDuplicates: true,
     };
-    console.warn(alertStatus, message);
     switch (alertStatus) {
       case AlertType.ERROR:
         this.toastrService.error(message, AlertType.ERROR, options);

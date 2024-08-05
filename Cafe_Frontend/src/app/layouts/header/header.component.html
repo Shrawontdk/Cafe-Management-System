@@ -2,5 +2,6 @@
   <i class="fa-solid fa-user"></i>
 </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
-
+  <button mat-menu-item (click)="changePassword()"><i class="fa fa-key"> Change Password</i></button>
+  <button mat-menu-item (click)="logOut()"><i class="fa fa-sign-out"> LogOut</i></button>
 </mat-menu>

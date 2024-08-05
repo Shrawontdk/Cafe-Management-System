@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbLayoutModule, NbOverlayModule, NbThemeModule, NbToastrModule} from '@nebular/theme';
 import {ToastrModule} from "ngx-toastr";
 import {tokenInterceptorInterceptor} from "./services/token-interceptor.interceptor";
+import {MenuItems} from "./shared/menu-items";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withInterceptors([tokenInterceptorInterceptor])),
+    MenuItems
   ]
 };

@@ -64,7 +64,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 10))  // Token valid for 10 minutes
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))  // Token valid for 30 min
                 .signWith(secretKey)
                 .compact();
     }

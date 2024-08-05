@@ -5,10 +5,11 @@ export interface Menu {
   name: string;
   type: string;
   icon: string;
+  role: string;
 }
 
 const MENUITEMS: Menu[] = [
-  { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'dashboard' }
+  { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'dashboard' , role: '' },
 ];
 
 @Injectable()

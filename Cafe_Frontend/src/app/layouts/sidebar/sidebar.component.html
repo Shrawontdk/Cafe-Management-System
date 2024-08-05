@@ -1,18 +1,10 @@
-<!--<mat-nav-list appAccordion>-->
-<!--  <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuItems()"-->
-<!--                 routerLinkActive="selected" group="{{menuitem.state}}">-->
-<!--    <a class="" appAccordionToggle [routerLink]="['/cafe/', menuitem.state]" *ngIf="menuitem.type === 'link'-->
-<!--        && (menuitem.role === '' || menuitem.role === userRole)">-->
-<!--      <span>{{ menuitem.name }}</span>-->
-<!--    </a>-->
-<!--  </mat-list-item>-->
-<!--</mat-nav-list>-->
-<!--<mat-nav-list appAccordion>-->
-<!--  <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuItems()"-->
-<!--                 routerLinkActive="selected" group="{{menuitem.state}}">-->
-<!--    <a class="" appAccordionToggle [routerLink]="['/cafe/', menuitem.state]" *ngIf="menuitem.type === 'link'-->
-<!--        && (menuitem.role === '' || menuitem.role === userRole)">-->
-<!--      <span>{{ menuitem.name }}</span>-->
-<!--    </a>-->
-<!--  </mat-list-item>-->
-<!--</mat-nav-list>-->
+<mat-nav-list appAccordion>
+  <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuItems()"
+                 routerLinkActive="selected" group="{{menuitem.state}}">
+    <a class="" appAccordionToggle [routerLink]="['/cafe/', menuitem.state]" *ngIf="menuitem.type === 'link'
+        && (menuitem.role === '' || menuitem.role === userRole)">
+      <i class="fa fa-home"><span>{{ menuitem.name }}</span></i>
+    </a>
+  </mat-list-item>
+</mat-nav-list>
+

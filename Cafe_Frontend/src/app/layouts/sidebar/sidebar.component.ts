@@ -8,6 +8,7 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {AccordionLinkDirective} from "../../shared/accordionlink.directive";
 import {AccordionDirective} from "../../shared/accordian.directive";
 import {AccordionAnchorDirective} from "../../shared/accordionanchor.directive";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +21,8 @@ import {AccordionAnchorDirective} from "../../shared/accordionanchor.directive";
     MatListModule,
     AccordionLinkDirective,
     AccordionDirective,
-    AccordionAnchorDirective
+    AccordionAnchorDirective,
+    CommonModule
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
@@ -33,8 +35,9 @@ export class SidebarComponent implements OnInit,OnDestroy {
   tokenPayload: any;
   changeDetectorRef = inject(ChangeDetectorRef);
   media = inject(MediaMatcher);
-  // constructor(public menuItems: MenuItems) { }
+  constructor(public menuItems: MenuItems) { }
   ngOnInit() {
+    // console.log('laudu lalit', this.menuItems.getMenuItems());
     this.tokenPayload = jwtDecode(this.token);
     this.userRole = this.tokenPayload?.role;
     this.mobileQuery = this.media.matchMedia('(min-width: 768px)');
