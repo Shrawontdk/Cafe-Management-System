@@ -1,12 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
-import {MatDialogClose, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef} from "@angular/material/dialog";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {ToastService} from "../../services/ToastService";
 import {Alert, AlertType} from "../../services/Alert";
 import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {NgIf} from "@angular/common";
@@ -27,7 +27,9 @@ import {NgIf} from "@angular/common";
     MatInput,
     MatSuffix,
     MatError,
-    NgIf
+    NgIf,
+    MatDialogActions,
+    MatButton
   ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss'
