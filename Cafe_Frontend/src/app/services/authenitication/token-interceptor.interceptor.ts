@@ -1,12 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import {LocalStorageUtil} from "../utils/local-storage-utils";
-import {ObjectUtil} from "../utils/ObjectUtil";
+import {LocalStorageUtil} from "../../utils/local-storage-utils";
+import {ObjectUtil} from "../../utils/ObjectUtil";
 import {catchError, throwError} from "rxjs";
 import {jwtDecode} from "jwt-decode";
-import {Alert, AlertType} from "./Alert";
+import {Alert, AlertType} from "../Alert";
 import {inject} from "@angular/core";
 import {Router} from "@angular/router";
-import {ToastService} from "./ToastService";
+import {ToastService} from "../ToastService";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 
 export const tokenInterceptorInterceptor: HttpInterceptorFn = (req, next) => {

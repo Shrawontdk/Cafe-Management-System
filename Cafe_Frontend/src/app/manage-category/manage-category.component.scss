@@ -1,0 +1,16 @@
+mat-card{
+  padding: 20px;
+  background: white;
+}
+::ng-deep .mat-form-field-underline {
+  background-color: rgba(0, 0, 0, 0.42); /* Default underline color */
+}
+
+::ng-deep .mat-form-field-underline.mat-focused .mat-form-field-ripple {
+  background-color: #1a1e21; /* Focused underline color, same as label */
+}
+
+::ng-deep .mat-form-field-underline.mat-form-field-ripple {
+  opacity: 1; /* Ensure underline is visible */
+}
+

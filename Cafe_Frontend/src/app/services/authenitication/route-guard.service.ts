@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {AuthGuardService} from "./authGuard.service";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {ToastService} from "./ToastService";
+import {ToastService} from "../ToastService";
 import {jwtDecode} from "jwt-decode";
-import {Alert, AlertType} from "./Alert";
-import {GlobalConstants} from "../shared/global-constants";
-import {LocalStorageUtil} from "../utils/local-storage-utils";
+import {Alert, AlertType} from "../Alert";
+import {GlobalConstants} from "../../shared/global-constants";
+import {LocalStorageUtil} from "../../utils/local-storage-utils";
 
 @Injectable({
   providedIn: 'root'

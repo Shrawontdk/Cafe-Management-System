@@ -1,10 +1,14 @@
 <mat-nav-list appAccordion>
-  <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuItems()"
-                 routerLinkActive="selected" group="{{menuitem.state}}">
-    <a class="" appAccordionToggle [routerLink]="['/cafe/', menuitem.state]" *ngIf="menuitem.type === 'link'
-        && (menuitem.role === '' || menuitem.role === userRole)">
-      <i class="fa fa-home"><span>{{ menuitem.name }}</span></i>
-    </a>
-  </mat-list-item>
+  <div *ngFor="let menuitem of menuItems.getMenuItems()">
+    <mat-list-item class="mt-3" style="background-color: snow; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);"
+                   appAccordionLink *ngIf="menuitem.type === 'link'
+        && (menuitem.role === '' || menuitem.role === userRole)"
+                   routerLinkActive="selected" group="{{menuitem.state}}">
+      <a class="" appAccordionToggle [routerLink]="['/cafe/', menuitem.state]">
+        <i class="fa fa-home"><span>{{ menuitem.name }}</span></i>
+      </a>
+    </mat-list-item>
+  </div>
+
 </mat-nav-list>
 

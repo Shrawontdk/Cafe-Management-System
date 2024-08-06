@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
         const storage = LocalStorageUtil.getStorage();
         storage.at = res.token;
         LocalStorageUtil.setStorage(storage);
-        // localStorage.setItem("token", (res.token))
         this.responseMessage = res?.message;
        this.router.navigate(['/cafe/dashboard']);
       },

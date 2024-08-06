@@ -1,9 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {Router} from "@angular/router";
-import {LocalStorageUtil} from "../utils/local-storage-utils";
+import {LocalStorageUtil} from "../../utils/local-storage-utils";
 import {jwtDecode} from "jwt-decode";
-import {ToastService} from "./ToastService";
-import {Alert, AlertType} from "./Alert";
+import {ToastService} from "../ToastService";
+import {Alert, AlertType} from "../Alert";
 
 @Injectable({
   providedIn: 'root'

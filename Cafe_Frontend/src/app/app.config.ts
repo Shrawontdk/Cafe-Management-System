@@ -6,7 +6,7 @@ import {HttpClientModule, provideHttpClient, withInterceptors} from '@angular/co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbLayoutModule, NbOverlayModule, NbThemeModule, NbToastrModule} from '@nebular/theme';
 import {ToastrModule} from "ngx-toastr";
-import {tokenInterceptorInterceptor} from "./services/token-interceptor.interceptor";
+import {tokenInterceptorInterceptor} from "./services/authenitication/token-interceptor.interceptor";
 import {MenuItems} from "./shared/menu-items";
 
 export const appConfig: ApplicationConfig = {

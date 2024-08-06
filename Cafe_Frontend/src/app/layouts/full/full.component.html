@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" style="height: 100%">
   <mat-toolbar color="primary" class="topbar telative">
     <div class="navbar-header">
       <button (click)="snav.toggle()" value="sidebarclosed" style="vertical-align: bottom;" mat-icon-button>
@@ -18,12 +18,12 @@
     <div class="spacer"></div>
     <app-header></app-header>
   </mat-toolbar>
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
-    <mat-sidenav style="background-color: lightgray" #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+  <mat-sidenav-container class="example-sidenav-container" style="height: inherit" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+    <mat-sidenav style="background-color: whitesmoke" #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
                  fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches">
       <app-sidebar></app-sidebar>
     </mat-sidenav>
-    <mat-sidenav-content class="page-wrapper">
+    <mat-sidenav-content style="background-color: aliceblue">
       <div class="page-content">
         <router-outlet></router-outlet>
       </div>
