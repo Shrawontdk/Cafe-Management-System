@@ -19,6 +19,10 @@ export class CategoryService {
   }
   getCategory() {
     const req = ApiUtils.getRequest(`${this.getApi()}/get`)
+    return this.httpClient.get(req.url, {headers: req.header})
+  }
+  deleteCategory(id: number){
+    const req = ApiUtils.getRequest(`${this.getApi()}/delete/${id}`)
     return this.httpClient.post(req.url, {headers: req.header})
   }
 

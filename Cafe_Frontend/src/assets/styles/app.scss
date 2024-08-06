@@ -16,8 +16,8 @@ File: scss
  *	7. Widgets
  *	8. Custom Templates
  */
-/******************* 
-Global Styles 
+/*******************
+Global Styles
 *******************/
 
 * {
@@ -706,6 +706,7 @@ froms
 }
 .mat-form-field {
   width: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
 }
 // /*******************
 // Mat card

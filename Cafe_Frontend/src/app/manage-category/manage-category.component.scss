@@ -1,16 +1,24 @@
 mat-card{
-  padding: 20px;
-  background: white;
+  padding: 20px !important;
+  background: white !important;
 }
-::ng-deep .mat-form-field-underline {
-  background-color: rgba(0, 0, 0, 0.42); /* Default underline color */
+th, td {
+  text-align: center;
+  padding: 10px;
+  vertical-align: middle;
 }
-
-::ng-deep .mat-form-field-underline.mat-focused .mat-form-field-ripple {
-  background-color: #1a1e21; /* Focused underline color, same as label */
-}
-
-::ng-deep .mat-form-field-underline.mat-form-field-ripple {
-  opacity: 1; /* Ensure underline is visible */
-}
-
+//.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+//  color: #000; /* or any color that provides good contrast with your background */
+//}
+//Copy::ng-deep .mat-mdc-form-field .mdc-line-ripple::before,
+//::ng-deep .mat-mdc-form-field .mdc-line-ripple::after {
+//  border-bottom-color: purple !important;
+//}
+//
+//::ng-deep .mat-mdc-form-field.mat-focused .mdc-line-ripple::after {
+//  border-bottom-color: purple !important;
+//}
+//
+//::ng-deep .mat-mdc-form-field .mat-mdc-form-field-infix {
+//  color: black !important;
+//}

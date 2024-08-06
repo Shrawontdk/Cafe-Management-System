@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CategoryService} from "../services/category.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ToastService} from "../services/ToastService";
 import {Router} from "@angular/router";
 import {
@@ -21,6 +21,9 @@ import {HeaderRowOutlet} from "@angular/cdk/table";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTooltip} from "@angular/material/tooltip";
 import {NgStyle} from "@angular/common";
+import {CategoryComponent} from "../category/category.component";
+import {ConfirmationComponent} from "../dialog/confirmation/confirmation.component";
+import {LocalStorageUtil} from "../utils/local-storage-utils";
 
 @Component({
   selector: 'app-manage-category',
@@ -50,7 +53,7 @@ import {NgStyle} from "@angular/common";
   styleUrl: './manage-category.component.scss'
 })
 export class ManageCategoryComponent implements OnInit {
-  displayColumns: string[] = ['name', 'edit'];
+  displayColumns: string[] = ['sn', 'name', 'edit'];
   dataSource: any;
   responseMessage: any;
   categoryService = inject(CategoryService);
@@ -79,16 +82,66 @@ export class ManageCategoryComponent implements OnInit {
     })
   }
 
-  applyFilter(event: any){
+  applyFilter(event: any) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   handleAddAction() {
-
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      action: 'Add'
+    };
+    dialogConfig.width = "850px";
+    const dialogRef = this.dialog.open(CategoryComponent, dialogConfig);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+    const sub = dialogRef.componentInstance.onAddCategory.subscribe((res) => {
+      this.tableData();
+    });
   }
 
-  handleEditAction(element: any) {
+  handleEditAction(values: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      action: 'Edit',
+      data: values,
+    };
+    dialogConfig.width = "850px";
+    const dialogRef = this.dialog.open(CategoryComponent, dialogConfig);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+    const sub = dialogRef.componentInstance.onAddCategory.subscribe((res) => {
+      this.tableData();
+    });
+  }
 
+  deleteCategory(values: any) {
+    const val = values;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      message: 'Delete Category',
+      confirmation: true,
+    };
+    dialogConfig.width = "850px";
+    const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
+    dialogRef.componentInstance.onEmitStatusChange.subscribe(() => {
+      this.categoryService.deleteCategory(val).subscribe({
+        next: (res: any) => {
+          dialogRef.close();
+          this.tableData();
+          this.responseMessage = res?.message;
+          this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
+        }, error: (err: any) => {
+          dialogRef.close();
+          if (err.error.message) {
+            this.responseMessage = err.error.message;
+            this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
+          }
+        }
+      });
+    })
   }
 }
