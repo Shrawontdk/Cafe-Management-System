@@ -97,7 +97,7 @@ export class ManageCategoryComponent implements OnInit {
     this.router.events.subscribe(() => {
       dialogRef.close();
     });
-    const sub = dialogRef.componentInstance.onAddCategory.subscribe((res) => {
+    dialogRef.componentInstance.onAddCategory.subscribe((res) => {
       this.tableData();
     });
   }

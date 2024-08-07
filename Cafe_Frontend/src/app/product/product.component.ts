@@ -9,96 +9,106 @@ import {
 } from "@angular/material/dialog";
 import {CategoryService} from "../services/category.service";
 import {ToastService} from "../services/ToastService";
+import {ProductService} from "../services/product.service";
+import {GlobalConstants} from "../shared/global-constants";
 import {Alert, AlertType} from "../services/Alert";
-import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {CommonModule} from "@angular/common";
+import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar"
+import {CommonModule, NgIf} from "@angular/common";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
-  selector: 'app-category',
+  selector: 'app-product',
   standalone: true,
   imports: [
-    MatToolbar,
-    MatDialogClose,
-    MatIconButton,
-    MatDialogContent,
-    ReactiveFormsModule,
-    MatFormField,
-    MatInput,
-    MatDialogActions,
     MatButton,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
     MatError,
+    MatFormField,
+    MatIconButton,
+    MatInput,
     MatLabel,
-    MatToolbarModule,
+    MatToolbar,
+    MatToolbarRow,
+    NgIf,
+    ReactiveFormsModule,
+    MatSelect,
+    MatOption,
     CommonModule
   ],
-  templateUrl: './category.component.html',
-  styleUrl: './category.component.scss'
+  templateUrl: './product.component.html',
+  styleUrl: './product.component.scss'
 })
-export class CategoryComponent implements OnInit {
-  onAddCategory = new EventEmitter();
+export class ProductComponent implements OnInit {
+  onAddProduct = new EventEmitter();
   form: UntypedFormGroup = new UntypedFormGroup({});
   dialogAction: any = "Add";
   action: any = "Add";
   responseMessage: any;
+  categorys: any = [];
   protected dialogData = inject(MAT_DIALOG_DATA);
   formBuilder = inject(FormBuilder);
+  productService = inject(ProductService);
   categoryService = inject(CategoryService);
-  dialogRef = inject(MatDialogRef<CategoryComponent>);
+  dialogRef = inject(MatDialogRef<ProductComponent>);
   toastService = inject(ToastService);
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: [undefined, Validators.required]
+      name: [undefined, [Validators.required, Validators.pattern(GlobalConstants.name)]],
+      price: [undefined, [Validators.required]],
+      categoryId: [undefined, [Validators.required]],
+      description: [undefined, [Validators.required]]
     });
-    if (this.dialogData.action === "Edit") {
+
+    if (this.dialogAction.action === "Edit") {
       this.dialogAction = "Edit";
       this.action = "Update";
       this.form.patchValue(this.dialogData.data);
     }
+    this.getcategorys();
+
   }
 
-  handleSubmit() {
-    if (this.dialogAction === "Edit") {
+  private getcategorys() {
+    this.categoryService.getCategory().subscribe({
+      next: (res: any) => {
+        this.categorys = res;
+      }, error: (err: any) => {
+        if (err.error.message) {
+          this.responseMessage = err.error.message;
+          this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
+        }
+      }
+    });
+  }
+
+  submit() {
+    if (this.dialogAction) {
       this.edit();
     } else {
       this.add();
     }
+
   }
 
-  add() {
-    const formData = this.form.value;
-    const data = {
-      name: formData.name
-    }
-    this.categoryService.add(data).subscribe({
-      next: (res: any) => {
-        this.dialogRef.close();
-        this.onAddCategory.emit();
-        this.responseMessage = res?.message;
-        this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
-      }, error: (err: any) => {
-        this.dialogRef.close();
-        if (err.error.message) {
-          this.responseMessage = err.error.message;
-          this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
-        }
-      }
-    });
-  }
-
-  edit() {
+  private edit() {
     const formData = this.form.value;
     const data = {
       id: this.dialogData.data.id,
-      name: formData.name
+      name: formData.name,
+      categoryId: formData.categoryId,
+      price: formData.price,
+      description: formData.description
     }
-    this.categoryService.update(data).subscribe({
+    this.productService.update(data).subscribe({
       next: (res: any) => {
         this.dialogRef.close();
-        this.onAddCategory.emit();
+        this.onAddProduct.emit();
         this.responseMessage = res?.message;
         this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
       }, error: (err: any) => {
@@ -109,5 +119,33 @@ export class CategoryComponent implements OnInit {
         }
       }
     });
+  }
+
+  private add() {
+    const formData = this.form.value;
+    const data = {
+      name: formData.name,
+      categoryId: formData.categoryId,
+      price: formData.price,
+      description: formData.description
+    }
+    this.productService.add(data).subscribe({
+      next: (res: any) => {
+        this.dialogRef.close();
+        this.onAddProduct.emit();
+        this.responseMessage = res?.message;
+        this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
+      }, error: (err: any) => {
+        this.dialogRef.close();
+        if (err.error.message) {
+          this.responseMessage = err.error.message;
+          this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
+        }
+      }
+    });
+  }
+
+  handleSubmit() {
+
   }
 }

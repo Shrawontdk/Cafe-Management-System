@@ -5,7 +5,11 @@
         && (menuitem.role === '' || menuitem.role === userRole)"
                    routerLinkActive="selected" group="{{menuitem.state}}">
       <a class="" appAccordionToggle [routerLink]="['/cafe/', menuitem.state]">
-        <i class="fa fa-home"><span>{{ menuitem.name }}</span></i>
+        <i class="fa fa-home" *ngIf="menuitem.state === 'dashboard'"><span> {{ menuitem.name }}</span></i>
+        <i class="fa-duotone fa-solid fa-bowl-food"
+           *ngIf="menuitem.state === 'category'"><span> {{ menuitem.name }}</span></i>
+        <i class="fa-brands fa-product-hunt"
+           *ngIf="menuitem.state === 'product'"><span> {{ menuitem.name }}</span></i>
       </a>
     </mat-list-item>
   </div>

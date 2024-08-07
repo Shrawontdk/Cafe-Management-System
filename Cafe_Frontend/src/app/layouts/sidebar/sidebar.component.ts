@@ -37,7 +37,6 @@ export class SidebarComponent implements OnInit,OnDestroy {
   media = inject(MediaMatcher);
   constructor(public menuItems: MenuItems) { }
   ngOnInit() {
-    console.log('laudu lalit', this.menuItems.getMenuItems());
     this.tokenPayload = jwtDecode(this.token);
     this.userRole = this.tokenPayload?.role;
     this.mobileQuery = this.media.matchMedia('(min-width: 768px)');

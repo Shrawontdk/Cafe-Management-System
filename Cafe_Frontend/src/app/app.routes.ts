@@ -5,6 +5,7 @@ import {RouteGuardService} from "./services/authenitication/route-guard.service"
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {CategoryService} from "./services/category.service";
 import {ManageCategoryComponent} from "./manage-category/manage-category.component";
+import {ManageProductComponent} from "./manage-product/manage-product.component";
 
 export const routes: Routes = [
 
@@ -26,6 +27,10 @@ export const routes: Routes = [
       {
         path: 'category',
         component: ManageCategoryComponent,
+      },
+      {
+        path: 'product',
+        component: ManageProductComponent,
       },
     ]
   },

@@ -19,7 +19,6 @@ export class ApiUtils {
 
   public static getRequestWithFileSupport(api: string) {
     const fullApi = `${ApiConfig.URL}/${api}`;
-    // const at = LocalStorageUtil.getStorage().at;
     const at = LocalStorageUtil.getStorage();
     return {
       url: fullApi,
