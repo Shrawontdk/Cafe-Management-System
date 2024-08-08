@@ -25,6 +25,10 @@ export class CategoryService {
     const req = ApiUtils.getRequest(`${this.getApi()}/delete/${id}`)
     return this.httpClient.post(req.url, {headers: req.header})
   }
+  getFilteredCategory(){
+    const req = ApiUtils.getRequest(`${this.getApi()}/get?filterValue=true`)
+    return this.httpClient.get(req.url, {headers: req.header})
+  }
 
   protected getApi() {
     return CategoryService.URL;

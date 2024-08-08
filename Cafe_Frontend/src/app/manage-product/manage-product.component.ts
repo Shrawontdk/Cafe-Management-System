@@ -23,6 +23,7 @@ import {HeaderRowOutlet} from "@angular/cdk/table";
 import {NgStyle} from "@angular/common";
 import {CategoryComponent} from "../category/category.component";
 import {ProductComponent} from "../product/product.component";
+import {ConfirmationComponent} from "../dialog/confirmation/confirmation.component";
 
 @Component({
   selector: 'app-manage-product',
@@ -84,8 +85,8 @@ export class ManageProductComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event){
-    const filterValue  = (event.target as HTMLInputElement).value;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -105,14 +106,71 @@ export class ManageProductComponent implements OnInit {
   }
 
   handleEditAction(element: any) {
-
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      action: 'Edit',
+      data: element
+    };
+    dialogConfig.width = "850px";
+    const dialogRef = this.matDialog.open(ProductComponent, dialogConfig);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+    dialogRef.componentInstance.onEditProduct.subscribe((res) => {
+      this.tableData();
+    });
   }
 
-  deleteCategory(id: any) {
-
+  deleteProduct(value: any) {
+    const val = value;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      message: 'Delete ' + val.name + 'product',
+      confirmation: true,
+    };
+    dialogConfig.width = "850px";
+    const dialogRef = this.matDialog.open(ConfirmationComponent, dialogConfig);
+    dialogRef.componentInstance.onEmitStatusChange.subscribe(() => {
+      this.ngxUiLoaderService.start();
+      this.productService.delete(val.id).subscribe({
+        next: (res: any) => {
+          this.ngxUiLoaderService.stop();
+          dialogRef.close();
+          this.tableData();
+          this.responseMessage = res?.message;
+          this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
+        }, error: (err: any) => {
+          this.ngxUiLoaderService.stop();
+          dialogRef.close();
+          if (err.error.message) {
+            this.responseMessage = err.error.message;
+            this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
+          }
+        }
+      });
+    });
   }
 
   onChange(checked: boolean, id: any) {
+    this.ngxUiLoaderService.start();
+    const data = {
+      status: checked.toString(),
+      id: id
+    }
+    this.productService.updateStatus(data).subscribe({
+      next: (res: any) => {
+        this.ngxUiLoaderService.stop();
+        this.responseMessage = res?.message;
+        this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
+      }, error: (err: any) => {
+        this.ngxUiLoaderService.stop();
+        if (err.error.message) {
+          this.responseMessage = err.error.message;
+          this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
+        }
+      }
+    });
 
   }
 }
+

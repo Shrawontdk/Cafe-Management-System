@@ -113,7 +113,7 @@ export class ManageCategoryComponent implements OnInit {
     this.router.events.subscribe(() => {
       dialogRef.close();
     });
-    const sub = dialogRef.componentInstance.onAddCategory.subscribe((res) => {
+    dialogRef.componentInstance.onEditCategory.subscribe((res) => {
       this.tableData();
     });
   }
@@ -128,13 +128,16 @@ export class ManageCategoryComponent implements OnInit {
     dialogConfig.width = "850px";
     const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
     dialogRef.componentInstance.onEmitStatusChange.subscribe(() => {
+      this.ngxUiLoaderService.start();
       this.categoryService.deleteCategory(val).subscribe({
         next: (res: any) => {
+          this.ngxUiLoaderService.stop();
           dialogRef.close();
           this.tableData();
           this.responseMessage = res?.message;
           this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
         }, error: (err: any) => {
+          this.ngxUiLoaderService.stop();
           dialogRef.close();
           if (err.error.message) {
             this.responseMessage = err.error.message;
@@ -142,6 +145,6 @@ export class ManageCategoryComponent implements OnInit {
           }
         }
       });
-    })
+    });
   }
 }

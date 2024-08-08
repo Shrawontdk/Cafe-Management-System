@@ -24,12 +24,20 @@ export class ProductService {
     return this.http.get(req.url , {headers: req.header})
   }
   updateStatus(data: any){
-    const req = ApiUtils.getRequest(`${this.API()}/update`);
+    const req = ApiUtils.getRequest(`${this.API()}/updateStatus`);
     return this.http.post(req.url ,data, {headers: req.header})
   }
   delete(id: any){
     const req = ApiUtils.getRequest(`${this.API()}/delete/${id}`);
-    return this.http.post(req.url ,id, {headers: req.header})
+    return this.http.post(req.url , {headers: req.header})
+  }
+  getProductsByCategory(categoryId: any){
+    const req = ApiUtils.getRequest(`${this.API()}/getByCategory/${categoryId}`);
+    return this.http.get(req.url , {headers: req.header})
+  }
+  getById(id: any){
+    const req = ApiUtils.getRequest(`${this.API()}/getById/${id}`);
+    return this.http.get(req.url , {headers: req.header})
   }
 
 

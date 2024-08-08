@@ -45,6 +45,7 @@ import {MatOption, MatSelect} from "@angular/material/select";
 })
 export class ProductComponent implements OnInit {
   onAddProduct = new EventEmitter();
+  onEditProduct = new EventEmitter();
   form: UntypedFormGroup = new UntypedFormGroup({});
   dialogAction: any = "Add";
   action: any = "Add";
@@ -59,13 +60,13 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: [undefined, [Validators.required, Validators.pattern(GlobalConstants.name)]],
+      name: [undefined, [Validators.required]],
       price: [undefined, [Validators.required]],
       categoryId: [undefined, [Validators.required]],
       description: [undefined, [Validators.required]]
     });
 
-    if (this.dialogAction.action === "Edit") {
+    if (this.dialogData.action === "Edit") {
       this.dialogAction = "Edit";
       this.action = "Update";
       this.form.patchValue(this.dialogData.data);
@@ -88,7 +89,7 @@ export class ProductComponent implements OnInit {
   }
 
   submit() {
-    if (this.dialogAction) {
+    if (this.dialogAction === "Edit") {
       this.edit();
     } else {
       this.add();
@@ -108,7 +109,7 @@ export class ProductComponent implements OnInit {
     this.productService.update(data).subscribe({
       next: (res: any) => {
         this.dialogRef.close();
-        this.onAddProduct.emit();
+        this.onEditProduct.emit();
         this.responseMessage = res?.message;
         this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
       }, error: (err: any) => {
@@ -145,7 +146,4 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  handleSubmit() {
-
-  }
 }

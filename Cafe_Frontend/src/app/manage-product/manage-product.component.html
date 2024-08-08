@@ -46,7 +46,7 @@
         <button mat-icon-button color="primary" matTooltip="Edit" (click)="handleEditAction(element)">
           <i class="fa-regular fa-pen-to-square"></i>
         </button>
-        <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteCategory(element.id)">
+        <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteProduct(element)">
           <i class="fa-solid fa-trash"></i>
         </button>
         <mat-slide-toggle (change)="onChange($event.checked, element.id)"

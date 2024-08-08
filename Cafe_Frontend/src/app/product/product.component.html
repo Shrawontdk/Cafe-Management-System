@@ -17,16 +17,10 @@
           <input  matInput required formControlName="name">
           <mat-error *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
             <span *ngIf="form.controls['name'].errors?.['required']">Name is required.</span>
-            <span *ngIf="form.controls['name'].errors?.['pattern']">Name is required.</span>
           </mat-error>
         </mat-form-field>
 
       </div>
-      {{categorys}}
-      <span  *ngFor="let category of categorys" >
-        {{category}}
-        ok
-      </span>
       <div class="row">
         <mat-form-field class="sb-mat-form-field w-50 col">
           <mat-label>Price</mat-label>
@@ -38,7 +32,7 @@
         <mat-form-field class="sb-mat-form-field w-50 col">
           <mat-label>Category</mat-label>
           <mat-select formControlName="categoryId">
-            <mat-option *ngFor="let category of categorys" [value]="category.name">
+            <mat-option *ngFor="let category of categorys" [value]="category.id">
               {{ category.name }}
             </mat-option>
           </mat-select>
@@ -63,7 +57,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()"
+  <button mat-raised-button color="primary" type="submit" (click)="submit()"
           [disabled]="form.invalid && !form.dirty">
     <i class="fa fa-save"> {{ action }}</i>
   </button>

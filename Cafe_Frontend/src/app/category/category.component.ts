@@ -39,6 +39,7 @@ import {CommonModule} from "@angular/common";
 })
 export class CategoryComponent implements OnInit {
   onAddCategory = new EventEmitter();
+  onEditCategory = new EventEmitter();
   form: UntypedFormGroup = new UntypedFormGroup({});
   dialogAction: any = "Add";
   action: any = "Add";
@@ -98,7 +99,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.update(data).subscribe({
       next: (res: any) => {
         this.dialogRef.close();
-        this.onAddCategory.emit();
+        this.onEditCategory.emit();
         this.responseMessage = res?.message;
         this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), this.responseMessage);
       }, error: (err: any) => {
