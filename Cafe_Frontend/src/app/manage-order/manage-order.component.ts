@@ -193,11 +193,9 @@ export class ManageOrderComponent implements OnInit {
   }
 
   handleDelete(value: any, element: any) {
-    element.removeAt(value);
-    // this.totalAmount = this.totalAmount - element.total;
-    // this.dataSource.splice(value, 1);
-    // this.dataSource = [...this.dataSource];
-
+    this.totalAmount = this.totalAmount - element.total;
+    this.dataSource.splice(value, 1);
+    this.dataSource = [...this.dataSource];
   }
 
   submit() {
