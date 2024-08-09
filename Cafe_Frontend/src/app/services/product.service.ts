@@ -40,9 +40,6 @@ export class ProductService {
     return this.http.get(req.url , {headers: req.header})
   }
 
-
-
-
   protected API(){
     return ProductService.API;
   }

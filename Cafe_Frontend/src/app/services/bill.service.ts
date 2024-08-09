@@ -22,6 +22,13 @@ export class BillService {
     const req = ApiUtils.getRequest(`${this.API()}/getBills`);
     return this.httpClient.get(req.url , {headers: req.header})
   }
+
+  delete(id: number){
+    const req = ApiUtils.getRequest(`${this.API()}/delete/${id}`);
+    return this.httpClient.post(req.url , {headers: req.header})
+  }
+
+
   protected API(){
     return BillService.URL;
   }

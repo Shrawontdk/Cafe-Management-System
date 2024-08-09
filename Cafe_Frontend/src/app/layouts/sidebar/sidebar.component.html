@@ -12,6 +12,8 @@
            *ngIf="menuitem.state === 'product'"><span> {{ menuitem.name }}</span></i>
         <i class="fa-duotone fa-solid fa-cart-shopping"
            *ngIf="menuitem.state === 'order'"><span> {{ menuitem.name }}</span></i>
+        <i class="fa-sharp fa-solid fa-receipt"
+           *ngIf="menuitem.state === 'bill'"><span> {{ menuitem.name }}</span></i>
       </a>
     </mat-list-item>
   </div>

@@ -7,6 +7,7 @@ import {CategoryService} from "./services/category.service";
 import {ManageCategoryComponent} from "./manage-category/manage-category.component";
 import {ManageProductComponent} from "./manage-product/manage-product.component";
 import {ManageOrderComponent} from "./manage-order/manage-order.component";
+import {ViewBillComponent} from "./view-bill/view-bill.component";
 
 export const routes: Routes = [
 
@@ -36,6 +37,10 @@ export const routes: Routes = [
       {
         path: 'order',
         component: ManageOrderComponent,
+      },
+      {
+        path: 'bill',
+        component: ViewBillComponent,
       },
     ]
   },
