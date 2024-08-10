@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
                 Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
                 if (!optional.isEmpty()) {
                     userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
-                    sendMailToAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
+//                    sendMailToAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
                     return CafeUtils.getResponseEntity("User status updated successfully.", HttpStatus.OK);
                 } else {
                     return CafeUtils.getResponseEntity("User id doesn't exist.", HttpStatus.OK);

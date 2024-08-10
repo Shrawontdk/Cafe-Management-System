@@ -41,6 +41,16 @@ export class UserService {
     return this.http.post(req.url, data, {headers: req.header});
   }
 
+  getUser(){
+    const req = ApiUtils.getRequest(`${this.getApi()}/get`)
+    return this.http.get(req.url, {headers: req.header});
+  }
+
+  update(data: any){
+    const req = ApiUtils.getRequest(`${this.getApi()}/update`)
+    return this.http.post(req.url, data, {headers: req.header});
+  }
+
   protected getApi(): string {
     return UserService.API;
   }
