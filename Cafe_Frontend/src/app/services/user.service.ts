@@ -51,6 +51,12 @@ export class UserService {
     return this.http.post(req.url, data, {headers: req.header});
   }
 
+  uploadFile(file: File){
+    const formData = new FormData();
+    formData.append('file', file);
+    const req = ApiUtils.getRequest(`${this.getApi()}/upload`)
+    return this.http.post(req.url, formData, {headers: req.header, responseType: "text"});
+  }
   protected getApi(): string {
     return UserService.API;
   }

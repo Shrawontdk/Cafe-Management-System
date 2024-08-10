@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ProductService} from "../services/product.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -48,10 +48,11 @@ import {ConfirmationComponent} from "../dialog/confirmation/confirmation.compone
     MatTableModule,
     NgStyle,
     MatHint,
-    MatSlideToggle
+    MatSlideToggle,
   ],
   templateUrl: './manage-product.component.html',
-  styleUrl: './manage-product.component.scss'
+  styleUrl: './manage-product.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class ManageProductComponent implements OnInit {
   displayColumns: string[] = ['sn', 'name', 'category', 'description', 'price', 'edit'];

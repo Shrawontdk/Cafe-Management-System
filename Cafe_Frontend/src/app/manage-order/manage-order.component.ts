@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {AbstractControl, FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators} from "@angular/forms";
 import {ProductService} from "../services/product.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
@@ -57,7 +57,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatTableModule
   ],
   templateUrl: './manage-order.component.html',
-  styleUrl: './manage-order.component.scss'
+  styleUrl: './manage-order.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class ManageOrderComponent implements OnInit {
   displayedColumns: string[] = ['sn', 'name', 'category', 'price', 'quantity', 'total', 'edit'];

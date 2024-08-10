@@ -43,12 +43,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 20px !important;
 }
 
+.spacer {
+  flex: 1 auto;
+}
+hr{
+  border: 1px solid #000000 !important;
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: black;
+}
+.custom-underline .mat-form-field-underline::before {
+  border-bottom-color: #000000; /* Set the desired color here */
+}
+
+.custom-underline .mat-form-field-underline::after {
+  border-bottom-color: #000000; /* Set the desired color here */
+}
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
 .sb-mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: transparent !important;
   padding: 0px !important;
   text-overflow: ellipsis;
-}
-.spacer {
-  flex: 1 auto;
 }

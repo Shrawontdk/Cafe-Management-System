@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row fxLayout="row">
+    <span>View Profile</span>
+    <span class="spacer"></span>
+    <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+      <i class="fa fa-times"></i>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography profile-dialog-content">
+  <div class="profile-container">
+    <!-- Profile Picture -->
+    <div class="profile-picture-container">
+      <img [src]="uploadedFileUrl" alt="Profile Picture" class="profile-picture">
+    </div>
+
+    <!-- User Name -->
+    <div class="user-name">
+      User Name
+    </div>
+
+    <!-- Upload Profile Picture -->
+    <div class="upload-section">
+      <label class="upload-label">Upload Profile Picture</label>
+
+      <button mat-raised-button color="primary" (click)="fileInput.click()">
+        <i class="fa-solid fa-upload"></i>
+        Choose File
+      </button>
+      <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none" />
+    </div>
+  </div>
+</mat-dialog-content>
+

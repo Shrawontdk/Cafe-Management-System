@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {CategoryService} from "../services/category.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -50,7 +50,8 @@ import {LocalStorageUtil} from "../utils/local-storage-utils";
     MatHint
   ],
   templateUrl: './manage-category.component.html',
-  styleUrl: './manage-category.component.scss'
+  styleUrl: './manage-category.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class ManageCategoryComponent implements OnInit {
   displayColumns: string[] = ['sn', 'name', 'edit'];

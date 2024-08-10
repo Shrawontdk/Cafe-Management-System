@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ProductService} from "../services/product.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -41,7 +41,9 @@ import {saveAs} from "file-saver";
 
   ],
   templateUrl: './view-bill.component.html',
-  styleUrl: './view-bill.component.scss'
+  styleUrl: './view-bill.component.scss',
+  encapsulation: ViewEncapsulation.None
+
 })
 export class ViewBillComponent implements OnInit {
   displayedColumns: string[] = ['sn', 'name', 'email', 'contactNumber', 'paymentMethod', 'total', 'view'];

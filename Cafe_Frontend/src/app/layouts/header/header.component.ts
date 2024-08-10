@@ -7,6 +7,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 import {LocalStorageUtil} from "../../utils/local-storage-utils";
 import {ChangePasswordComponent} from "../../dialog/change-password/change-password.component";
+import {ProfileComponent} from "../../profile/profile.component";
 
 @Component({
   selector: 'app-header',
@@ -46,5 +47,11 @@ export class HeaderComponent {
     dialogConfig.width = "550px";
     this.matDialog.open(ChangePasswordComponent, dialogConfig);
 
+  }
+
+  viewProfile() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "550px";
+    this.matDialog.open(ProfileComponent, dialogConfig);
   }
 }

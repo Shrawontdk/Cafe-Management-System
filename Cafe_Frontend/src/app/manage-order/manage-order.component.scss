@@ -7,7 +7,7 @@ mat-card{
   padding: 20px !important;
 }
 th, td {
-  text-align: center;
+  text-align: center !important;
   padding: 10px;
   vertical-align: middle;
 }
@@ -38,22 +38,18 @@ th{
   box-shadow: none;
   opacity: 0.6; /* Added to further indicate the disabled state */
 }
-input{
-  text-overflow: ellipsis !important;
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: black !important;
 }
 
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled),
 .sb-mat-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: none !important;
+  background-color: transparent !important;
+  padding: 0px !important;
+  text-overflow: ellipsis;
 }
-
-.sb-mat-input, .sb-mat-select {
-  color: black !important;
-  caret-color: black !important;
-  font-size: 1.1rem !important;
-}
-
-.sb-mat-input::placeholder, .sb-mat-select::placeholder{
-  opacity: 1;
-  color: black !important;
-  font-size: 1.1rem !important;
+hr{
+  border: 1px solid #000000 !important;
 }

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {ProductService} from "../services/product.service";
 import {NgxUiLoaderService} from "ngx-ui-loader";
 import {MatDialog} from "@angular/material/dialog";
@@ -35,7 +35,8 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatTooltip
   ],
   templateUrl: './manage-user.component.html',
-  styleUrl: './manage-user.component.scss'
+  styleUrl: './manage-user.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class ManageUserComponent implements OnInit {
 
