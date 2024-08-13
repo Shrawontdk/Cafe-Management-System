@@ -2,6 +2,7 @@ package com.cafeManagement.service;
 
 import com.cafeManagement.wrapper.UserWrapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,8 @@ public interface UserService {
     ResponseEntity<String> changePassword(Map<String, String> requestMap);
 
     ResponseEntity<String> forgotPassword(Map<String, String> requestMap);
+
+    ResponseEntity<?> uploadFile(MultipartFile uploadFile);
+
+    ResponseEntity<String> getProfilePicture();
 }

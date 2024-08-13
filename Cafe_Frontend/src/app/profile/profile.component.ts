@@ -11,6 +11,8 @@ import {UserService} from "../services/user.service";
 import {Toast} from "ngx-toastr";
 import {ToastService} from "../services/ToastService";
 import {Alert, AlertType} from "../services/Alert";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {response} from "express";
 
 @Component({
   selector: 'app-profile',
@@ -41,11 +43,17 @@ import {Alert, AlertType} from "../services/Alert";
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   selectedFileName: string = '';
-  uploadedFileUrl: string = '';
+  // uploadedFileUrl: SafeUrl = '';
+  uploadedFileUrl: SafeUrl = '';
   userService= inject(UserService);
   toastService= inject(ToastService);
+  sanitizer= inject(DomSanitizer);
+
+  ngOnInit() {
+    this.loadProfilePicture();
+  }
 
   onFileSelected(event: Event) {
     const input = (event.target as HTMLInputElement);
@@ -61,8 +69,8 @@ export class ProfileComponent {
   uploadFile(file: File): void {
     this.userService.uploadFile(file).subscribe(
       response => {
-        this.uploadedFileUrl = response;
         this.toastService.showToastMessage(new Alert(AlertType.SUCCESS), "Uploaded file successfully");
+        this.loadProfilePicture();
       },
       error => {
         console.error('Error uploading file', error);
@@ -72,4 +80,21 @@ export class ProfileComponent {
       }
     );
   }
+
+
+  loadProfilePicture(): void {
+    this.userService.getProfilePictureUrl().subscribe(
+      (response: any) => {
+        if (response && typeof response === 'string') {
+          this.uploadedFileUrl = this.sanitizer.bypassSecurityTrustUrl(response);
+        } else {
+          console.error('Invalid response:', response);
+        }
+      },
+      error => {
+        console.error('Error loading profile picture', error);
+      }
+    );
+  }
+
 }

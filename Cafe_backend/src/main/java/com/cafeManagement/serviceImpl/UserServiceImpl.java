@@ -12,7 +12,9 @@ import com.cafeManagement.wrapper.UserWrapper;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +25,16 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 @Slf4j
@@ -45,6 +56,9 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private EmailUtils emailUtils;
+
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @PostConstruct
     public void updateExistingPasswords() {
@@ -224,4 +238,36 @@ public class UserServiceImpl implements UserService {
         throw new AuthenticationException("Bad Credentials.") {
         };
     }
+
+    @Override
+    public ResponseEntity<?> uploadFile(MultipartFile uploadFile) {
+        if (uploadFile.isEmpty()) {
+            return ResponseEntity.badRequest().body("Please select a file to upload");
+        }
+
+        try {
+            User userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
+            if (userObj != null) {
+                String fileUrl = fileStorageService.storeFile(uploadFile, userObj.getId());
+
+                userObj.setProfilePictureUrl(fileUrl);
+                userDao.save(userObj);
+                return ResponseEntity.ok().body("Profile picture uploaded successfully");
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload profile picture: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> getProfilePicture() {
+        User user = userDao.findByEmail(jwtFilter.getCurrentUser());
+        if (user != null && user.getProfilePictureUrl() != null) {
+            return ResponseEntity.ok().body(user.getProfilePictureUrl());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

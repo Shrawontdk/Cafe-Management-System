@@ -3,6 +3,7 @@ import {environment} from "@env/environment";
 import {ApiConfig} from "../utils/api-config";
 import {HttpClient} from "@angular/common/http";
 import {ApiUtils} from "../utils/api-utils";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -54,9 +55,14 @@ export class UserService {
   uploadFile(file: File){
     const formData = new FormData();
     formData.append('file', file);
-    const req = ApiUtils.getRequest(`${this.getApi()}/upload`)
+    const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload`)
     return this.http.post(req.url, formData, {headers: req.header, responseType: "text"});
   }
+  getProfilePictureUrl(): Observable<any> {
+    const req = ApiUtils.getRequest(`${this.getApi()}/profile-picture`)
+    return this.http.get(req.url, {headers: req.header, responseType: "text"});
+  }
+
   protected getApi(): string {
     return UserService.API;
   }

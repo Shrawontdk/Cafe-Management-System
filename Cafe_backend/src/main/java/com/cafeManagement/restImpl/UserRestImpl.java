@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -88,5 +88,28 @@ public class UserRestImpl implements UserRest {
             ex.printStackTrace();
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<?> forgotPassword(MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("Please select a file to upload");
+        }
+        try {
+            return userService.uploadFile(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> getProfilePicture() {
+        try {
+            return userService.getProfilePicture();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

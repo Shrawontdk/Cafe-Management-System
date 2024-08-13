@@ -37,6 +37,7 @@ public class User implements Serializable {
     private String status;
     @Column(name = "role")
     private String role;
-
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
 
 }

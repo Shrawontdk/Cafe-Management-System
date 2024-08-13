@@ -27,7 +27,7 @@
         <i class="fa-solid fa-upload"></i>
         Choose File
       </button>
-      <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none" />
+      <input #fileInput accept="image/*" type="file" (change)="onFileSelected($event)" style="display:none" />
     </div>
   </div>
 </mat-dialog-content>

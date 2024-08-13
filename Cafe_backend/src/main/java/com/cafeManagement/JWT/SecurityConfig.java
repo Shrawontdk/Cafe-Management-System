@@ -54,6 +54,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/v1/user/login", "/v1/user/signUp", "/v1/user/forgotPassword").permitAll()
+                                .requestMatchers("/downloadFile/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
