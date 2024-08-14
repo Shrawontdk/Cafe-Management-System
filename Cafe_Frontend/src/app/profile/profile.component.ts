@@ -46,10 +46,10 @@ import {response} from "express";
 export class ProfileComponent implements OnInit {
   selectedFileName: string = '';
   // uploadedFileUrl: SafeUrl = '';
-  uploadedFileUrl: SafeUrl = '';
-  userService= inject(UserService);
-  toastService= inject(ToastService);
-  sanitizer= inject(DomSanitizer);
+  uploadedFileUrl: any;
+  userService = inject(UserService);
+  toastService = inject(ToastService);
+  sanitizer = inject(DomSanitizer);
 
   ngOnInit() {
     this.loadProfilePicture();
@@ -74,9 +74,13 @@ export class ProfileComponent implements OnInit {
       },
       error => {
         console.error('Error uploading file', error);
-        if(error.error.message){
-          this.toastService.showToastMessage(new Alert(AlertType.ERROR), "Error");
+        if (error.status === 0) {
+          return this.toastService.showToastMessage(new Alert(AlertType.ERROR), "Image is very high in dimensions and quality. System could not store it.");
         }
+        if (error.error) {
+          this.toastService.showToastMessage(new Alert(AlertType.ERROR), error.error);
+        }
+
       }
     );
   }
@@ -86,7 +90,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfilePictureUrl().subscribe(
       (response: any) => {
         if (response && typeof response === 'string') {
-          this.uploadedFileUrl = this.sanitizer.bypassSecurityTrustUrl(response);
+          this.uploadedFileUrl = (response);
         } else {
           console.error('Invalid response:', response);
         }

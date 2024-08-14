@@ -31,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     Claims claims = null;
     private String userName = null;
-    private static final String SKIP_JWT_FILTER_PATTERN = "/v1/user/login|/v1/user/forgotPassword|/v1/user/signup|/downloadFile/.*";
+    private static final String SKIP_JWT_FILTER_PATTERN = "/v1/user/login|/v1/user/forgotPassword|/v1/user/signup|/files/.*";
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
@@ -39,14 +39,12 @@ public class JwtFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         logger.debug("Processing request: {}", httpServletRequest.getServletPath());
 
-//        if (httpServletRequest.getServletPath().matches("/v1/user/login|/v1/user/forgotPassword|/v1/user/signup|/downloadFile/.*")) {
-//            logger.debug("Skipping JWT filter for endpoint: {}", httpServletRequest.getServletPath());
-//            filterChain.doFilter(httpServletRequest, httpServletResponse);
-//            return;
-//        }
         if (httpServletRequest.getRequestURI().matches(SKIP_JWT_FILTER_PATTERN)) {
-            logger.debug("Skipping JWT filter for endpoint: {}", httpServletRequest.getRequestURI());
+            System.out.println("Skipping JWT filter for endpoint: " + httpServletRequest.getRequestURI());
+            System.out.println("Request URI: " + httpServletRequest.getRequestURI());
+            System.out.println("Does URI match skip pattern? " + httpServletRequest.getRequestURI().matches(SKIP_JWT_FILTER_PATTERN));
             filterChain.doFilter(httpServletRequest, httpServletResponse);
+
             return;
         }
 

@@ -53,8 +53,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers("/files/**").permitAll()
                                 .requestMatchers("/v1/user/login", "/v1/user/signUp", "/v1/user/forgotPassword").permitAll()
-                                .requestMatchers("/downloadFile/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

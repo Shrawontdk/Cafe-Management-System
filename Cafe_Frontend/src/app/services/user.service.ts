@@ -60,7 +60,7 @@ export class UserService {
   }
   getProfilePictureUrl(): Observable<any> {
     const req = ApiUtils.getRequest(`${this.getApi()}/profile-picture`)
-    return this.http.get(req.url, {headers: req.header, responseType: "text"});
+    return this.http.get(req.url, { responseType: "text" });
   }
 
   protected getApi(): string {
