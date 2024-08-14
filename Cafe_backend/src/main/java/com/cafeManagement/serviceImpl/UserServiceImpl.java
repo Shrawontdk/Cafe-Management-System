@@ -8,13 +8,11 @@ import com.cafeManagement.dao.UserDao;
 import com.cafeManagement.service.UserService;
 import com.cafeManagement.utils.CafeUtils;
 import com.cafeManagement.utils.EmailUtils;
-import com.cafeManagement.wrapper.UserWrapper;
+import com.cafeManagement.wrapper.UserDto;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,16 +23,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 @Slf4j
@@ -117,7 +107,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<List<UserWrapper>> getAllUser() {
+    public ResponseEntity<List<UserDto>> getAllUser() {
         try {
             if (jwtFilter.isAdmin()) {
                 return new ResponseEntity<>(userDao.getAllUser(), HttpStatus.OK);
@@ -137,7 +127,7 @@ public class UserServiceImpl implements UserService {
                 Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
                 if (!optional.isEmpty()) {
                     userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
-//                    sendMailToAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
+                    sendMailToAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
                     return CafeUtils.getResponseEntity("User status updated successfully.", HttpStatus.OK);
                 } else {
                     return CafeUtils.getResponseEntity("User id doesn't exist.", HttpStatus.OK);
@@ -198,7 +188,7 @@ public class UserServiceImpl implements UserService {
     private void sendMailToAdmin(String status, String user, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getCurrentUser());
         if (status != null && status.equalsIgnoreCase("true")) {
-            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account apporoved", "USER:-" + user + "\n is approved by \n ADMIN:-" + jwtFilter.getCurrentUser(), allAdmin);
+            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account approved", "USER:-" + user + "\n is approved by \n ADMIN:-" + jwtFilter.getCurrentUser(), allAdmin);
         } else {
             emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account disabled", "USER:-" + user + "\n is disabled by \n ADMIN:-" + jwtFilter.getCurrentUser(), allAdmin);
         }
@@ -268,6 +258,26 @@ public class UserServiceImpl implements UserService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @Override
+    public ResponseEntity<UserDto> getUserDetails() {
+        try {
+            User userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
+            if (userObj != null) {
+                UserDto response = new UserDto(
+                        userObj.getName(),
+                        userObj.getEmail(),
+                        userObj.getContactNumber(),
+                        userObj.getStatus());
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new UserDto(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

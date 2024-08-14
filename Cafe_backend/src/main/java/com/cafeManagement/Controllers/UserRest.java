@@ -1,6 +1,6 @@
 package com.cafeManagement.Controllers;
 
-import com.cafeManagement.wrapper.UserWrapper;
+import com.cafeManagement.wrapper.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +17,7 @@ public interface UserRest {
     public ResponseEntity<String> login(@RequestBody(required = true) Map<String, String> requestMap);
 
     @GetMapping(path = "/get")
-    public ResponseEntity<List<UserWrapper>> getAllUser();
+    public ResponseEntity<List<UserDto>> getAllUser();
 
     @PostMapping(path = "/update")
     public ResponseEntity<String> updateUser(@RequestBody(required = true) Map<String, String> requestMap);
@@ -36,4 +36,7 @@ public interface UserRest {
 
     @GetMapping("/profile-picture")
     public ResponseEntity<String> getProfilePicture();
+
+    @GetMapping("/user-details")
+    public ResponseEntity<UserDto> getUserDetails();
 }

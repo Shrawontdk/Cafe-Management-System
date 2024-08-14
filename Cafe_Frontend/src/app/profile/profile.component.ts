@@ -50,9 +50,14 @@ export class ProfileComponent implements OnInit {
   userService = inject(UserService);
   toastService = inject(ToastService);
   sanitizer = inject(DomSanitizer);
+  userName: any;
+  email: any;
+  contact: any;
+  status: any;
 
   ngOnInit() {
     this.loadProfilePicture();
+    this.getUserDetails();
   }
 
   onFileSelected(event: Event) {
@@ -101,4 +106,26 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  private getUserDetails() {
+    this.userService.getUserDetails().subscribe(
+      (response: any) => {
+        this.patchUser(response);
+      },
+      error => {
+        console.error('Error loading user details', error);
+        if(error.error) {
+          this.toastService.showToastMessage(new Alert(AlertType.ERROR), error.error);
+        }
+      }
+    );
+  }
+
+  private patchUser(response: any) {
+    this.userName = response.name;
+    this.email = response.email;
+    this.contact = response.contactNumber;
+    this.status = response.status;
+  }
+
+  protected readonly name = name;
 }

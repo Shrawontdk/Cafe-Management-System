@@ -26,7 +26,7 @@ public class EmailUtils {
 
     public void sendSimpleMessage(String to, String subject, String text, List<String> list) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("tdkshrawon2017@outlook.com");
+        message.setFrom("deathop17@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
@@ -51,7 +51,7 @@ public class EmailUtils {
             helper.setTo(to);
             helper.setSubject(subject);
             String htmlMsg = "<p><b>Your Login details for Cafe Management System</b><br><b>Email: </b> " +
-                    to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:4200/\">" +
+                    to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:4203/\">" +
                     "Click here to login</a></p>";
             message.setContent(htmlMsg, "text/html");
             emailSender.send(message);

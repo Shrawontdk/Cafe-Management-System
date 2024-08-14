@@ -63,6 +63,11 @@ export class UserService {
     return this.http.get(req.url, { responseType: "text" });
   }
 
+  getUserDetails(): Observable<any> {
+    const req = ApiUtils.getRequest(`${this.getApi()}/user-details`)
+    return this.http.get(req.url, { headers: req.header });
+  }
+
   protected getApi(): string {
     return UserService.API;
   }

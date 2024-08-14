@@ -15,7 +15,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Name</mat-label>
-            <input class="sb-mat-input " matInput formControlName="name" required>
+            <input style="color: black" class="sb-mat-input " matInput formControlName="name" required>
             <mat-error *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
               <span *ngIf="form.controls['name'].errors?.['required']">Name is required.</span>
             </mat-error>
@@ -24,7 +24,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Email</mat-label>
-            <input class="sb-mat-input" matInput formControlName="email" required>
+            <input style="color: black" class="sb-mat-input" matInput formControlName="email" required>
             <mat-error *ngIf="FormControls['email']?.invalid && FormControls['email']?.touched">
               <span *ngIf="FormControls['email']?.errors?.['required']">Email is required.</span>
               <span *ngIf="FormControls['email']?.errors?.['pattern']">Email is invalid.</span>
@@ -34,7 +34,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Contact Number</mat-label>
-            <input class="sb-mat-input" matInput formControlName="contactNumber" required>
+            <input style="color: black" class="sb-mat-input" matInput formControlName="contactNumber" required>
             <mat-error *ngIf="form.controls['contactNumber'].invalid && form.controls['contactNumber'].touched">
               <span *ngIf="form.controls['contactNumber'].errors?.['required']">Contact Number is required.</span>
               <span *ngIf="form.controls['contactNumber'].errors?.['pattern']">Contact Number is invalid.</span>
@@ -44,7 +44,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Payment Method</mat-label>
-            <mat-select class="sb-mat-input" formControlName="paymentMethod" required>
+            <mat-select style="color: black" class="sb-mat-input" formControlName="paymentMethod" required>
               <mat-option value="Cash">Cash</mat-option>
               <mat-option value="Credit Card">Credit Card</mat-option>
               <mat-option value="Debit Card">Debit Card</mat-option>
@@ -71,7 +71,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Category</mat-label>
-            <mat-select class="sb-mat-input " (selectionChange)="getProductsByCategory($event.value)"
+            <mat-select style="color: black" class="sb-mat-input " (selectionChange)="getProductsByCategory($event.value)"
                         formControlName="category">
               <mat-option *ngFor="let category1 of categorys" [value]="category1">
                 {{ category1.name }}
@@ -82,9 +82,9 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Product</mat-label>
-            <mat-select class="sb-mat-input " (selectionChange)="getProductDetails($event.value)"
+            <mat-select style="color: black" class="sb-mat-input " (selectionChange)="getProductDetails($event.value)"
                         formControlName="product">
-              <mat-option *ngFor="let product of products" [value]="product">
+              <mat-option  *ngFor="let product of products" [value]="product">
                 {{ product.name }}
               </mat-option>
             </mat-select>
@@ -93,7 +93,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Price</mat-label>
-            <input class="sb-mat-input " matInput formControlName="price" readonly>
+            <input style="color: black" class="sb-mat-input " matInput formControlName="price" readonly>
             <mat-error *ngIf="form.controls['price'].invalid && form.controls['price'].touched">
               <span *ngIf="form.controls['price'].errors?.['required']">Price is required.</span>
             </mat-error>
@@ -102,7 +102,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Quantity</mat-label>
-            <input class="sb-mat-input " matInput formControlName="quantity" required (keyup)="setQuantity($event)" #input>
+            <input style="color: black" class="sb-mat-input " matInput formControlName="quantity" required (keyup)="setQuantity($event)" #input>
             <mat-error *ngIf="form.controls['quantity'].invalid && form.controls['quantity'].touched">
               <span *ngIf="form.controls['quantity'].errors?.['required']">Quantity is required.</span>
             </mat-error>
@@ -111,7 +111,7 @@
         <div class="col">
           <mat-form-field class="col sb-mat-form-field  w-100 mat-form-field-underline">
             <mat-label style="color: black">Total</mat-label>
-            <input class="sb-mat-input " matInput formControlName="total" readonly >
+            <input style="color: black" class="sb-mat-input " matInput formControlName="total" readonly >
 
           </mat-form-field>
         </div>

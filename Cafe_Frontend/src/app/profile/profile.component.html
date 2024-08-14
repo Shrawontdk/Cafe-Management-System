@@ -9,22 +9,39 @@
 </mat-toolbar>
 <mat-dialog-content class="mat-typography profile-dialog-content">
   <div class="profile-container">
-    <div class="profile-picture-container" >
+    <div class="profile-picture-container">
       <img *ngIf="uploadedFileUrl" [src]="uploadedFileUrl" alt="Profile Picture" class="profile-picture">
     </div>
-
-    <div class="user-name">
-      User Name
-    </div>
-
     <div class="upload-section">
-      <label class="upload-label">Upload Profile Picture</label>
+      <label class="upload-label" style="font-family: Serif,serif; font-size: inherit">Upload Profile Picture</label>
 
       <button class="btn btn-sm btn-outline-info" (click)="fileInput.click()">
         <i class="fa-solid fa-upload"></i>
       </button>
-      <input #fileInput accept="image/*" type="file" (change)="onFileSelected($event)" style="display:none" />
+      <input #fileInput accept="image/*" type="file" (change)="onFileSelected($event)" style="display:none"/>
     </div>
+    <table style="border: none; text-align: left">
+      <tbody>
+      <tr class="user-name">
+        <td>Name : </td>
+        <td style="padding-left: 20px">{{ userName }}</td>
+      </tr>
+      <tr class="user-name">
+        <td>Email : </td>
+        <td style="padding-left: 20px">{{ email }}</td>
+      </tr>
+      <tr class="user-name">
+        <td>Contact : </td>
+        <td style="padding-left: 20px">{{ contact }}</td>
+      </tr>
+      <tr class="user-name">
+        <td>Status : </td>
+        <td style="padding-left: 20px">{{ status }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+
   </div>
 </mat-dialog-content>
 

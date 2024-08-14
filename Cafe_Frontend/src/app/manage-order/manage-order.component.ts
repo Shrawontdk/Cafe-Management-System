@@ -133,7 +133,7 @@ export class ManageOrderComponent implements OnInit {
         this.price = res;
         this.form.controls['price'].setValue(res.price);
         this.form.controls['quantity'].setValue('1');
-        this.form.controls['total'].setValue(this.price * 1);
+        this.form.controls['total'].setValue(this.price.price * 1);
       }, error: (err: any) => {
         this.ngxUiLoaderService.stop();
         if (err.error.message) {

@@ -1,6 +1,6 @@
 package com.cafeManagement.service;
 
-import com.cafeManagement.wrapper.UserWrapper;
+import com.cafeManagement.wrapper.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +12,7 @@ public interface UserService {
 
     ResponseEntity<String> login(Map<String, String> requestMap);
 
-    ResponseEntity<List<UserWrapper>> getAllUser();
+    ResponseEntity<List<UserDto>> getAllUser();
 
     ResponseEntity<String> updateUser(Map<String, String> requestMap);
 
@@ -25,4 +25,5 @@ public interface UserService {
     ResponseEntity<?> uploadFile(MultipartFile uploadFile);
 
     ResponseEntity<String> getProfilePicture();
+    ResponseEntity<UserDto> getUserDetails();
 }

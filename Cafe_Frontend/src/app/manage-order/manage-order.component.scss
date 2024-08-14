@@ -53,3 +53,9 @@ th{
 hr{
   border: 1px solid #000000 !important;
 }
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: chartreuse !important; /* or any color you want */
+}
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+  color: chartreuse !important;
+}

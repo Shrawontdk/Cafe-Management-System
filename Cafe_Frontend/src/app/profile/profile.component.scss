@@ -20,7 +20,7 @@ mat-hint{
 }
 
 .profile-picture-container {
-  margin: 20px 0;
+  margin: -10px 0;
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -36,8 +36,7 @@ mat-hint{
 
 .user-name {
   font-size: 24px;
-  font-weight: bold;
-  margin-top: 10px;
+  font-family: Serif, serif;
 }
 
 .upload-section {
@@ -45,6 +44,12 @@ mat-hint{
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
+}
+@media (max-width: 431px) {
+  .user-name {
+    font-size: 17px;
+    font-family: Serif, serif;
+  }
 }
 
 .upload-label {

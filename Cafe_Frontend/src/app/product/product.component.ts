@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators} from "@angular/forms";
 import {
   MAT_DIALOG_DATA,
@@ -41,7 +41,8 @@ import {MatOption, MatSelect} from "@angular/material/select";
     CommonModule
   ],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.scss'
+  styleUrl: './product.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductComponent implements OnInit {
   onAddProduct = new EventEmitter();
