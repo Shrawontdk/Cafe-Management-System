@@ -39,14 +39,27 @@
     </div>
   </div>
 </div>
-
-<div class="chart-container">
-  <ngx-charts-pie-chart
+<div class="chart-container" *ngIf="datas  && datas .length">
+  <ngx-charts-advanced-pie-chart
     [view]="view"
     [scheme]="colorScheme"
-    [results]="datas"
+    [results]="datas "
     [gradient]="true"
     [tooltipDisabled]="false">
-  </ngx-charts-pie-chart>
+  </ngx-charts-advanced-pie-chart>
+
 </div>
+<!--<ngx-charts-bar-vertical-->
+<!--  [view]="view"-->
+<!--  [scheme]="colorScheme"-->
+<!--  [results]="datas "-->
+<!--  [gradient]="true"-->
+<!--  [xAxis]="true"-->
+<!--  [yAxis]="true"-->
+<!--  [legend]="true"-->
+<!--  [showXAxisLabel]="true"-->
+<!--  [showYAxisLabel]="true"-->
+<!--  xAxisLabel="Items"-->
+<!--  yAxisLabel="Values">-->
+<!--</ngx-charts-bar-vertical>-->
 </body>
