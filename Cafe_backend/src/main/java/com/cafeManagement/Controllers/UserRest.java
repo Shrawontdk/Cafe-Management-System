@@ -32,7 +32,7 @@ public interface UserRest {
     public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> requestMap);
 
     @PostMapping(path = "/upload")
-    public ResponseEntity<?> forgotPassword(@RequestParam("file") MultipartFile file);
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file);
 
     @GetMapping("/profile-picture")
     public ResponseEntity<String> getProfilePicture();

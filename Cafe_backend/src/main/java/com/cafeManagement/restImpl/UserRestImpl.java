@@ -91,7 +91,7 @@ public class UserRestImpl implements UserRest {
     }
 
     @Override
-    public ResponseEntity<?> forgotPassword(MultipartFile file) {
+    public ResponseEntity<?> upload(MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Please select a file to upload");
         }

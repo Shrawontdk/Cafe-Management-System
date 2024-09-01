@@ -25,5 +25,6 @@ public interface UserService {
     ResponseEntity<?> uploadFile(MultipartFile uploadFile);
 
     ResponseEntity<String> getProfilePicture();
+
     ResponseEntity<UserDto> getUserDetails();
 }

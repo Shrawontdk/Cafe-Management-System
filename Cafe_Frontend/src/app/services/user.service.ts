@@ -56,7 +56,7 @@ export class UserService {
     const formData = new FormData();
     formData.append('file', file);
     const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload`)
-    return this.http.post(req.url, formData, {headers: req.header, responseType: "text"});
+    return this.http.post(req.url, formData, {headers: req.header});
   }
   getProfilePictureUrl(): Observable<any> {
     const req = ApiUtils.getRequest(`${this.getApi()}/profile-picture`)
