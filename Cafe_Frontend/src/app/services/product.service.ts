@@ -29,7 +29,7 @@ export class ProductService {
   }
   delete(id: any){
     const req = ApiUtils.getRequest(`${this.API()}/delete/${id}`);
-    return this.http.post(req.url , {headers: req.header})
+    return this.http.delete(req.url , {headers: req.header})
   }
   getProductsByCategory(categoryId: any){
     const req = ApiUtils.getRequest(`${this.API()}/getByCategory/${categoryId}`);

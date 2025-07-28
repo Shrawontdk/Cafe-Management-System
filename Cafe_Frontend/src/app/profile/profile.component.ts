@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
           return this.toastService.showToastMessage(new Alert(AlertType.ERROR), "Image is very high in dimensions and quality. System could not store it.");
         }
         if (error.error) {
-          this.toastService.showToastMessage(new Alert(AlertType.ERROR), error.error);
+          this.toastService.showToastMessage(new Alert(AlertType.ERROR), error.message);
         }
 
       }

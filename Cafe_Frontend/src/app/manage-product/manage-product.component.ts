@@ -20,10 +20,11 @@ import {MatInput} from "@angular/material/input";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {HeaderRowOutlet} from "@angular/cdk/table";
-import {NgStyle} from "@angular/common";
+import {NgForOf, NgStyle} from "@angular/common";
 import {CategoryComponent} from "../category/category.component";
 import {ProductComponent} from "../product/product.component";
 import {ConfirmationComponent} from "../dialog/confirmation/confirmation.component";
+import {CategoryService} from "../services/category.service";
 
 @Component({
   selector: 'app-manage-product',
@@ -49,6 +50,7 @@ import {ConfirmationComponent} from "../dialog/confirmation/confirmation.compone
     NgStyle,
     MatHint,
     MatSlideToggle,
+    NgForOf,
   ],
   templateUrl: './manage-product.component.html',
   styleUrl: './manage-product.component.scss',
@@ -64,10 +66,13 @@ export class ManageProductComponent implements OnInit {
   matDialog = inject(MatDialog);
   toastService = inject(ToastService);
   router = inject(Router);
+  categoryService = inject(CategoryService);
+  anotherDataSource: any;
 
   ngOnInit() {
     this.ngxUiLoaderService.start();
     this.tableData();
+    this.anotherTableData();
   }
 
   tableData() {
@@ -82,6 +87,16 @@ export class ManageProductComponent implements OnInit {
           this.responseMessage = error.error.message;
           this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
         }
+      }
+    });
+  }
+
+  anotherTableData() {
+    this.categoryService.getCategory().subscribe({
+      next: (res: any) => {
+        this.anotherDataSource = res;
+      }, error: (error: any) => {
+        console.log('error');
       }
     });
   }
