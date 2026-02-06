@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "user")
+@Table(name = "app_users")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
