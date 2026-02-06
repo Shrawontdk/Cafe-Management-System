@@ -68,17 +68,28 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOriginPatterns(Arrays.asList("http://localhost:*"));
+
+        corsConfig.setAllowedOrigins(Arrays.asList(
+                "http://localhost:4200",
+                "https://shrawoncafemanagement.netlify.app"
+        ));
+
+        corsConfig.setAllowedMethods(Arrays.asList(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+        ));
+
+        corsConfig.setAllowedHeaders(Arrays.asList(
+                "Authorization", "Content-Type"
+        ));
+
+        corsConfig.setAllowCredentials(true);
         corsConfig.setMaxAge(3600L);
-        corsConfig.addAllowedMethod("*");
-        corsConfig.addAllowedHeader("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
 
         return source;
     }
-
     @Bean
     public UserDetailsService userDetailsService() {
         return customerUserDetailService;
