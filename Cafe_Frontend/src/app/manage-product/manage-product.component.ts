@@ -8,20 +8,21 @@ import {Alert, AlertType} from "../services/Alert";
 import {
   MatCell,
   MatCellDef,
-  MatColumnDef, MatHeaderCell, MatHeaderCellDef,
+  MatColumnDef,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatRow, MatRowDef, MatTable,
-  MatTableDataSource, MatTableModule
+  MatRow,
+  MatTable,
+  MatTableDataSource,
+  MatTableModule
 } from "@angular/material/table";
 import {MatCard} from "@angular/material/card";
 import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
-import {HeaderRowOutlet} from "@angular/cdk/table";
-import {NgForOf, NgStyle} from "@angular/common";
-import {CategoryComponent} from "../category/category.component";
+import {NgForOf} from "@angular/common";
 import {ProductComponent} from "../product/product.component";
 import {ConfirmationComponent} from "../dialog/confirmation/confirmation.component";
 import {CategoryService} from "../services/category.service";
@@ -37,8 +38,6 @@ import {CategoryService} from "../services/category.service";
     MatInput,
     MatTable,
     MatColumnDef,
-    MatHeaderCell,
-    HeaderRowOutlet,
     MatHeaderCellDef,
     MatCell,
     MatCellDef,
@@ -47,8 +46,6 @@ import {CategoryService} from "../services/category.service";
     MatHeaderRow,
     MatRow,
     MatTableModule,
-    NgStyle,
-    MatHint,
     MatSlideToggle,
     NgForOf,
   ],
@@ -66,13 +63,11 @@ export class ManageProductComponent implements OnInit {
   matDialog = inject(MatDialog);
   toastService = inject(ToastService);
   router = inject(Router);
-  categoryService = inject(CategoryService);
-  anotherDataSource: any;
+
 
   ngOnInit() {
     this.ngxUiLoaderService.start();
     this.tableData();
-    this.anotherTableData();
   }
 
   tableData() {
@@ -87,16 +82,6 @@ export class ManageProductComponent implements OnInit {
           this.responseMessage = error.error.message;
           this.toastService.showToastMessage(new Alert(AlertType.ERROR), this.responseMessage);
         }
-      }
-    });
-  }
-
-  anotherTableData() {
-    this.categoryService.getCategory().subscribe({
-      next: (res: any) => {
-        this.anotherDataSource = res;
-      }, error: (error: any) => {
-        console.log('error');
       }
     });
   }
