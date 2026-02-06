@@ -1,7 +1,7 @@
 [build]
   base = "Cafe_Frontend"
   command = "ng build --configuration production"
-  publish = "dist/cafe-frontend"
+  publish = "dist/cafe-frontend/browser"
 
 [[redirects]]
   from = "/*"
