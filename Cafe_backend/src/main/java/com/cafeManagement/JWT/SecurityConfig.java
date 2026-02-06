@@ -68,7 +68,7 @@ public class SecurityConfig {
         CorsConfiguration corsConfig = new CorsConfiguration();
 
         corsConfig.setAllowedOrigins(Arrays.asList(
-                "http://localhost:4203",
+                "http://localhost:*",
                 "https://shrawoncafemanagement.netlify.app"
         ));
 
