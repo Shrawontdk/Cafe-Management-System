@@ -14,12 +14,12 @@ export class LocalStorageUtil {
   public static getStorage(): LocalStorage {
     if (!this.isStorageAvailable()) {
       console.warn('localStorage is not available in this environment');
-      return new LocalStorage();
+      return {} as LocalStorage;
     }
 
     const storedData = localStorage.getItem(environment.appConfigName);
-    if (ObjectUtil.isEmpty(storedData)) {
-      return new LocalStorage();
+    if (!storedData) {
+      return {} as LocalStorage;
     }
 
     try {
@@ -27,7 +27,7 @@ export class LocalStorageUtil {
       return JSON.parse(decryptedData);
     } catch (error) {
       console.error('Error parsing stored data:', error);
-      return new LocalStorage();
+      return {} as LocalStorage;
     }
   }
 

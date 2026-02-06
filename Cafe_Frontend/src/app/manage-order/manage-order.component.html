@@ -27,6 +27,7 @@
             <input style="color: black" class="sb-mat-input" matInput formControlName="email" required>
             <mat-error *ngIf="FormControls['email']?.invalid && FormControls['email']?.touched">
               <span *ngIf="FormControls['email']?.errors?.['required']">Email is required.</span>
+              <span *ngIf="FormControls['email']?.hasError('required')">Email is required.</span>
               <span *ngIf="FormControls['email']?.errors?.['pattern']">Email is invalid.</span>
             </mat-error>
           </mat-form-field>
