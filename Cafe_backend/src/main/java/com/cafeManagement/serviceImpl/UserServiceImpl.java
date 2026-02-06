@@ -51,17 +51,25 @@ public class UserServiceImpl implements UserService {
     private FileStorageService fileStorageService;
 
     @PostConstruct
-    public void updateExistingPasswords() {
-        List<User> users = userDao.findAll();
-        for (User user : users) {
-            // Only update if the password isn't already encoded
-            if (!user.getPassword().startsWith("$2a$")) {
-                String hashedPassword = passwordEncoder.encode(user.getPassword());
-                user.setPassword(hashedPassword);
-                userDao.save(user);
+    public void createDefaultAdmin() {
+        try {
+            User existingAdmin = userDao.findByEmailId("admin@cafe.com");
+
+            if (existingAdmin == null) {
+                User admin = new User();
+                admin.setName("Admin");
+                admin.setEmail("admin@cafe.com");
+                admin.setContactNumber("1234567890");
+                admin.setPassword(passwordEncoder.encode("admin123"));
+                admin.setStatus("true");
+                admin.setRole("admin");
+
+                userDao.save(admin);
+                log.info("Default admin created successfully");
             }
+        } catch (Exception ex) {
+            log.error("Error creating default admin", ex);
         }
-        log.info("Existing passwords updated to BCrypt");
     }
 
     @Override
@@ -204,7 +212,7 @@ public class UserServiceImpl implements UserService {
         user.setContactNumber(requestMap.get("contactNumber"));
         user.setEmail(requestMap.get("email"));
         user.setPassword(passwordEncoder.encode(requestMap.get("password")));
-        user.setStatus("false");
+        user.setStatus("true");
         user.setRole("user");
         return user;
     }
